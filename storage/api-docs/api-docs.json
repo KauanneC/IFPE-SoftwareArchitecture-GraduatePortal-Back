@@ -1,0 +1,104 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Portal de Egressos",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/events": {
+            "post": {
+                "summary": "Cria um novo evento",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "hour": {
+                                        "type": "string",
+                                        "format": "time"
+                                    },
+                                    "modality": {
+                                        "type": "string"
+                                    },
+                                    "place": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Evento criado com suce",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar evento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "EventResource": {
+                "properties": {
+                    "_id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "hour": {
+                        "type": "string",
+                        "format": "time"
+                    },
+                    "modality": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

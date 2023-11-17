@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Domain\Repositories\IEventRepository;
+use App\Http\Repositories\EloquentEventRepository;
 use Illuminate\Support\ServiceProvider;
+
+// use App\Domain\Usecases\CreateEventUseCase;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(IEventRepository::class, EloquentEventRepository::class);
     }
 
     /**
@@ -19,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }
