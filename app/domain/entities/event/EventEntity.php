@@ -2,6 +2,8 @@
 
 namespace App\Domain\Entities\event;
 
+use Ramsey\Uuid\Uuid;
+
 use App\Domain\Entities\event\Date;
 use App\Domain\Entities\event\Hour;
 
@@ -15,15 +17,15 @@ class EventEntity {
     private string $description;
 
     public function __construct(
-        string $id = '',
         string $name,
         Date $date,
         Hour $hour,
         string $modality,
         string $place,
-        string $description
+        string $description,
+        string $id = ''
     ){
-        $this->id = $id;
+        $this->id = $id == '' ? Uuid::uuid4()->toString() : $id;
         $this->name = $name;
         $this->date = $date;
         $this->hour = $hour;

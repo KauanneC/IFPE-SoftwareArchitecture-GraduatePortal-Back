@@ -2,30 +2,33 @@
 
 namespace App\Domain\Usecases;
 
-use App\Domain\dtos\CreateEventDTO;
+use Exception;
+
+use App\Domain\dtos\UpdateEventDTO;
+use App\Domain\Repositories\IEventRepository;
+
 use App\Domain\Entities\event\EventEntity;
 use App\Domain\Entities\event\Date;
 use App\Domain\Entities\event\Hour;
-use App\Domain\Repositories\IEventRepository;
-use Exception;
 
-class CreateEventUseCase {
-
+class UpdateEventUseCase {
     public function __construct(private IEventRepository $eventRepository) {}
-    public function execute(CreateEventDTO $data): EventEntity {
+
+    public function execute(string $id, UpdateEventDTO $data){
         $event = new EventEntity(
             $data->name,
             new Date($data->date),
             new Hour($data->hour),
             $data->modality,
             $data->place,
-            $data->description,    
+            $data->description,
+            $id
         );
 
-        $this->eventRepository->create($event);
+        $result = $this->eventRepository->update($event);
 
-        return $event;
+        if(!$result){
+            throw new Exception('Evento não encontrado');
+        }
     }
-
-    
 }

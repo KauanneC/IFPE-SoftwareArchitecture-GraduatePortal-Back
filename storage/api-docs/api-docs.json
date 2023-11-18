@@ -4,10 +4,19 @@
         "title": "Api Portal de Egressos",
         "version": "1.0.0"
     },
+    "tags": [
+        {
+            "name": "Event",
+            "description": "Endpoints referentes aos eventos"
+        }
+    ],
     "paths": {
         "/api/events": {
             "post": {
                 "summary": "Cria um novo evento",
+                "tags": [
+                    "Event"
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -18,11 +27,13 @@
                                     },
                                     "date": {
                                         "type": "string",
-                                        "format": "date"
+                                        "format": "date",
+                                        "example": "2020-12-31"
                                     },
                                     "hour": {
                                         "type": "string",
-                                        "format": "time"
+                                        "format": "time",
+                                        "example": "12:00"
                                     },
                                     "modality": {
                                         "type": "string"
@@ -41,11 +52,39 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Evento criado com suce",
+                        "description": "Evento criado com sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/EventResource"
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "date": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2020-12-31"
+                                        },
+                                        "hour": {
+                                            "type": "string",
+                                            "format": "time",
+                                            "example": "12:00"
+                                        },
+                                        "modality": {
+                                            "type": "string"
+                                        },
+                                        "place": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -57,7 +96,8 @@
                                 "schema": {
                                     "properties": {
                                         "msg": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "Erro ao criar evento"
                                         }
                                     },
                                     "type": "object"
@@ -65,39 +105,252 @@
                             }
                         }
                     }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
                 }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "EventResource": {
-                "properties": {
-                    "_id": {
-                        "type": "integer"
+            },
+            "get": {
+                "summary": "Retorna todos os eventos",
+                "tags": [
+                    "Event"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Eventos retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "_id": {
+                                                "type": "string",
+                                                "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "date": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2020-12-31"
+                                            },
+                                            "hour": {
+                                                "type": "string",
+                                                "format": "time",
+                                                "example": "12:00"
+                                            },
+                                            "modality": {
+                                                "type": "string"
+                                            },
+                                            "place": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
-                    "name": {
-                        "type": "string"
-                    },
-                    "date": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "hour": {
-                        "type": "string",
-                        "format": "time"
-                    },
-                    "modality": {
-                        "type": "string"
-                    },
-                    "place": {
-                        "type": "string"
-                    },
-                    "description": {
-                        "type": "string"
+                    "404": {
+                        "description": "Erro ao retornar eventos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao retornar eventos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
-                "type": "object"
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "api/events/{id}": {
+            "put": {
+                "summary": "Atualizar um evento",
+                "tags": [
+                    "Event"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "param",
+                        "description": "Id do evento",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2020-12-31"
+                                    },
+                                    "hour": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "12:00"
+                                    },
+                                    "modality": {
+                                        "type": "string"
+                                    },
+                                    "place": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Evento atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Evento atualizado com sucesso"
+                                        
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao atualizar evento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao atualizar evento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar um evento",
+                "tags": [
+                    "Event"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "param",
+                        "description": "Id do evento",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Evento deletado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Evento deletado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao deletar evento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao deletar evento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
             }
         }
     }

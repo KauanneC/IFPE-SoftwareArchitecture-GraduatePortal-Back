@@ -13,6 +13,7 @@ class EloquentEventRepository implements IEventRepository {
 
     public function create(EventEntity $event): void {
         $newEvent = new Event();
+        $newEvent->_id = $event->getId();
         $newEvent->name = $event->getName();
         $newEvent->date = $event->getDate()->getValue();
         $newEvent->hour = $event->getHour()->getValue();
@@ -27,5 +28,29 @@ class EloquentEventRepository implements IEventRepository {
     public function getAll(): array {
         $events = $this->eventModel->all();
         return $events->toArray();
+    }
+
+    public function remove(string $id): bool {
+        $event = $this->eventModel->find($id);
+        if($event){
+            $event->delete();
+            return true;
+        }
+        return false;
+    }
+
+    public function update(EventEntity $event): bool {
+        $eventUpdate = $this->eventModel->find($event->getId());
+        if($eventUpdate){
+            $eventUpdate->name = $event->getName();
+            $eventUpdate->date = $event->getDate()->getValue();
+            $eventUpdate->hour = $event->getHour()->getValue();
+            $eventUpdate->modality = $event->getModality();
+            $eventUpdate->place = $event->getPlace();
+            $eventUpdate->description = $event->getDescription();
+            $eventUpdate->save();
+            return true;
+        }
+        return false;
     }
 }
