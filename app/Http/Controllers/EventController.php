@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Domain\dtos\UpdateEventDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEventRequest;
+use App\Http\Requests\UpdateEventRequest;
 use App\Http\Resources\EventResource;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -79,7 +80,7 @@ class EventController extends Controller {
         }
     }
 
-    public function update(string $id, CreateEventRequest $request){
+    public function update(string $id, UpdateEventRequest $request){
         try {
             $requestData = $request->only('name', 'date', 'hour', 'modality', 'place', 'description');
             
