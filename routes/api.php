@@ -11,3 +11,5 @@ Route::delete('/events/{id}', [EventController::class, 'remove']);
 Route::put('/events/{id}', [EventController::class, 'update']);
 
 Route::post('/forms', [FormController::class, 'create']);
+Route::get('/forms/{formType}', [FormController::class, 'getAllFormType']);
+Route::delete('/forms/{id}', [FormController::class, 'remove']);

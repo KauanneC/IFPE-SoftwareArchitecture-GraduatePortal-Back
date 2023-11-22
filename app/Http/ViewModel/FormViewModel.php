@@ -13,4 +13,18 @@ class FormViewModel {
             'options' => $formEntity->getOptions()
         ];
     }
+
+    public static function toHttpAll(array $formEntity): array {
+        $form = [];
+        foreach ($formEntity as $formData) {
+            $form[] = [
+                'id' => $formData['_id'],
+                'formType' => $formData['form_type'],
+                'question' => $formData['question'],
+                'type' => $formData['type'],
+                'options' => $formData['options']
+            ];
+        }
+        return $form;
+    }
 }

@@ -17,4 +17,18 @@ class EloquentFormRepository implements IFormRepository {
 
         $formModel->save();
     }
+
+    public function getAllFormType(string $formType): array {
+        $form = Form::where('form_type', $formType)->get();
+        return $form->toArray();
+    }
+
+    public function remove(string $id): bool {
+        $form = Form::find($id);
+        if(!$form){
+            return false;
+        }
+        $form->delete();
+        return true;
+    }
 }

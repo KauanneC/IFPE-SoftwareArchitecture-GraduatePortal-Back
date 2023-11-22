@@ -6,7 +6,7 @@ use App\Domain\Entities\Form\FormEntity;
 
 interface IFormRepository {
     public function create(FormEntity $form): void;
-    // public function getAll(): array;
+    public function getAllFormType(string $formType): array;
     // public function getById(string $id): FormEntity;
-    // public function delete(string $id): bool;
+    public function remove(string $id): bool;
 }
