@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Domain\Usecases;
+namespace App\Domain\Usecases\event;
 
 use App\Domain\dtos\CreateEventDTO;
 use App\Domain\Entities\event\EventEntity;
 use App\Domain\Entities\event\Date;
 use App\Domain\Entities\event\Hour;
 use App\Domain\Repositories\IEventRepository;
-use Exception;
 
 class CreateEventUseCase {
 

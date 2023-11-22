@@ -8,6 +8,10 @@
         {
             "name": "Event",
             "description": "Endpoints referentes aos eventos"
+        },
+        {
+            "name": "Form",
+            "description": "Endpoints referentes ao Formulário"
         }
     ],
     "paths": {
@@ -193,7 +197,7 @@
                 }
             }
         },
-        "api/events/{id}": {
+        "/api/events/{id}": {
             "put": {
                 "summary": "Atualizar um evento",
                 "tags": [
@@ -352,6 +356,104 @@
                     }
                 }
             }
+        },
+        "/api/forms": {
+            "post": {
+                "summary": "Criar um novo Campo no formulário",
+                "tags": [
+                    "Form"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "formType": "dados-pessoais || profissional || academico || feedback",
+                                        "question": "Nome Completo",
+                                        "type": "text",
+                                        "options": null
+                                    }
+                                },
+                                "example2": {
+                                    "value": {
+                                        "formType": "dados-pessoais || profissional || academico || feedback",
+                                        "question": "Nome Completo",
+                                        "type": "checkbox || radio",
+                                        "options": {
+                                            "option1": "Opção 1",
+                                            "option2": "Opção 2",
+                                            "option3": "Opção 3"
+                                        
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cmapo criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                            "formType": "dados-pessoais || profissional || academico || feedback",
+                                            "question": "Nome Completo",
+                                            "type": "text",
+                                            "options": null
+                                        }
+                                    },
+                                    "example2": {
+                                        "value": {
+                                            "id":"3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                            "formType": "dados-pessoais || profissional || academico || feedback",
+                                            "question": "Nome Completo",
+                                            "type": "checkbox || radio",
+                                            "options": {
+                                                "option1": "Opção 1",
+                                                "option2": "Opção 2",
+                                                "option3": "Opção 3"
+                                            
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar campo do formulário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao criar campoo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }

@@ -6,16 +6,15 @@ use App\Domain\dtos\UpdateEventDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use App\Http\Resources\EventResource;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
 use App\Http\ViewModel\EventViewModel;
 
-use App\Domain\Usecases\CreateEventUseCase;
-use App\Domain\Usecases\GetAllUseCase;
-use App\Domain\Usecases\RemoveEventUseCase;
-use App\Domain\Usecases\UpdateEventUseCase;
+use App\Domain\Usecases\event\CreateEventUseCase;
+use App\Domain\Usecases\event\GetAllUseCase;
+use App\Domain\Usecases\event\RemoveEventUseCase;
+use App\Domain\Usecases\event\UpdateEventUseCase;
 
 
 use App\Domain\dtos\CreateEventDTO;

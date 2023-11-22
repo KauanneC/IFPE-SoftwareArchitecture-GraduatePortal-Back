@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Usecases;
+namespace App\Domain\Usecases\event;
 
 use Exception;
 
