@@ -12,6 +12,10 @@
         {
             "name": "Form",
             "description": "Endpoints referentes ao Formulário"
+        },
+        {
+            "name": "User",
+            "description": "Endpoints referentes ao Usuário"
         }
     ],
     "paths": {
@@ -259,7 +263,6 @@
                                         "msg": {
                                             "type": "string",
                                             "example": "Evento atualizado com sucesso"
-                                        
                                         }
                                     }
                                 }
@@ -384,7 +387,6 @@
                                             "option1": "Opção 1",
                                             "option2": "Opção 2",
                                             "option3": "Opção 3"
-                                        
                                         }
                                     }
                                 }
@@ -409,7 +411,7 @@
                                     },
                                     "example2": {
                                         "value": {
-                                            "id":"3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                            "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
                                             "formType": "dados-pessoais || profissional || academico || feedback",
                                             "question": "Nome Completo",
                                             "type": "checkbox || radio",
@@ -417,7 +419,6 @@
                                                 "option1": "Opção 1",
                                                 "option2": "Opção 2",
                                                 "option3": "Opção 3"
-                                            
                                             }
                                         }
                                     }
@@ -453,7 +454,6 @@
                     }
                 }
             }
-            
         },
         "/api/forms/{formType}": {
             "get": {
@@ -497,7 +497,6 @@
                                                     "option1": "Opção 1",
                                                     "option2": "Opção 2",
                                                     "option3": "Opção 3"
-                                                
                                                 }
                                             }
                                         ]
@@ -579,6 +578,352 @@
                                         "msg": {
                                             "type": "string",
                                             "example": "Error ao remover campo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "post": {
+                "summary": "Criar um novo usuário",
+                "tags": [
+                    "User"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "profile": {
+                                            "type": "string"
+                                        },
+                                        "primaryAcess": {
+                                            "type": "boolean"
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao criar usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{email}": {
+            "get": {
+                "summary": "Retorna um usuário específico pelo email",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "teste@gmail.com"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário retornado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "profile": {
+                                            "type": "string"
+                                        },
+                                        "primaryAcess": {
+                                            "type": "boolean"
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao retonar usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{id}": {
+            "delete": {
+                "summary": "Deletar um usuário",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário removido com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Usuário removido com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao remover usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao remover usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{profile}/{page}": {
+            "get": {
+                "summary": "Retorna todos os usuários de um perfil específico",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "profile",
+                        "in": "path",
+                        "description": "Perfil do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "coordinator || egress || teacher"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Página atual",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuários retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "_id": {
+                                                        "type": "string",
+                                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "profile": {
+                                                        "type": "string"
+                                                    },
+                                                    "primaryAcess": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "page_info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "total_users": {
+                                                    "type": "number",
+                                                    "example": 100
+                                                },
+                                                "total_page": {
+                                                    "type": "number",
+                                                    "example": 10
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuários não encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao retornar usuários"
                                         }
                                     },
                                     "type": "object"
