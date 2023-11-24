@@ -42,4 +42,15 @@ class EloquentUserRepository implements IUserRepository {
         $userModels = User::where('profile', $profile)->paginate($limit);
         return $userModels->toArray();
     }
+
+    public function updatePassword(string $email, string $password): bool {
+        $userModel = User::where('email', $email)->first();
+        if (!$userModel) {
+            return false;
+        }
+        $userModel->password = $password;
+        $userModel->primaryAcess = true;
+        $userModel->save();
+        return true;
+    }
 }
