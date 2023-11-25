@@ -4,6 +4,7 @@ namespace App\Domain\UseCases\Auth;
 
 use App\Domain\Repositories\IUserRepository;
 
+use Dotenv\Dotenv;
 use Firebase\JWT\JWT;
 
 use Exception;
@@ -11,10 +12,12 @@ use Exception;
 class LoginUseCase {
     public function __construct(private IUserRepository $iUserRepository){}
 
-    public function execute(string $email, string $password): string{
+    public function execute(string $email, string $password): string {
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../../');
+        $dotenv->load();
+
         $user = $this->iUserRepository->findByEmail($email);
 
-        
         if(!$user){
             throw new Exception('Usuário não encontrado');
         }
@@ -24,18 +27,19 @@ class LoginUseCase {
         }
         // dd($user);
 
-        $dadosToken = [
+        $tokenData = [
             'userId' => $user->getId(),
             'name' => $user->getName(),
             'email' => $user->getEmail(),
             'code' => $user->getCode(),
             'primaryAcess' => $user->getPrimaryAcess(),
-            'profile' => $user->getProfile()->getValue()
+            'profile' => $user->getProfile()->getValue(),
+            'exp' => time() + 86400
         ];
 
-        $chaveSecreta = (string)getenv('TOKEN_SECRET');
-        
-        $token = JWT::encode($dadosToken, $chaveSecreta, 'HS256');
+        $tokenSecret = (string)getenv('TOKEN_SECRET');
+
+        $token = JWT::encode($tokenData, $tokenSecret, 'HS256');
 
         return $token;
     }

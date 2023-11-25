@@ -16,8 +16,20 @@
         {
             "name": "User",
             "description": "Endpoints referentes ao Usuário"
+        },
+        {
+            "name": "Auth",
+            "description": "Endpoints referentes a Autenticação"
         }
     ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apikey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Autenticação JWT"
+        }
+    },
     "paths": {
         "/api/events": {
             "post": {
@@ -123,7 +135,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             },
             "get": {
                 "summary": "Retorna todos os eventos",
@@ -295,7 +312,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             },
             "delete": {
                 "summary": "Deletar um evento",
@@ -357,7 +379,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         },
         "/api/forms": {
@@ -452,7 +479,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         },
         "/api/forms/{formType}": {
@@ -595,7 +627,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         },
         "/api/user": {
@@ -686,7 +723,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         },
         "/api/user/{email}": {
@@ -766,7 +808,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         },
         "/api/user/{id}": {
@@ -830,7 +877,12 @@
                             "example": "application/json"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         },
         "/api/user/{profile}/{page}": {
@@ -941,7 +993,235 @@
                             "example": "application/json"
                         }
                     }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/auth": {
+            "post": {
+                "summary": "Autenticar um usuário",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário autenticado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro ao autenticar usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "E-mail ou senha incorretos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
                 }
+            }
+        },
+        "/api/auth/primaryAcess": {
+            "post": {
+                "summary": "Alterar senha do usuário com acesso pirmário",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário autenticado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Senha do usuário alterado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao alterar senha do usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao alterar senha do usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/updatepassword": {
+            "post": {
+                "summary": "Alterar senha do usuário",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha do usuário alterado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Senha do usuário alterado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao alterar senha do usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao alterar senha do usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     }

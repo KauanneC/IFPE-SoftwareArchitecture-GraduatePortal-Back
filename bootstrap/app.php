@@ -1,8 +1,5 @@
 <?php
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
-
 /*
 |--------------------------------------------------------------------------
 | Create The Application

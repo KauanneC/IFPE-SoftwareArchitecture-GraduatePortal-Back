@@ -2,24 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Middleware\VerifyUserType;
+use App\Http\Middleware\VerifyToken;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\EventController;
 
-Route::post('/events', [EventController::class, 'create']);
+Route::post('/events', [EventController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
 Route::get('/events', [EventController::class, 'getAll']);
-Route::delete('/events/{id}', [EventController::class, 'remove']);
-Route::put('/events/{id}', [EventController::class, 'update']);
+Route::delete('/events/{id}', [EventController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
+Route::put('/events/{id}', [EventController::class, 'update'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
 
-Route::post('/forms', [FormController::class, 'create']);
+Route::post('/forms', [FormController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
 Route::get('/forms/{formType}', [FormController::class, 'getAllFormType']);
-Route::delete('/forms/{id}', [FormController::class, 'remove']);
+Route::delete('/forms/{id}', [FormController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
 
-Route::post('/user', [UserController::class, 'create']);
-Route::get('/user/{email}', [UserController::class, 'getByEmail']);
-Route::delete('/user/{id}', [UserController::class, 'remove']);
-Route::get('/user/{profile}/{page}', [UserController::class, 'getAllByProfile']);
+Route::post('/user', [UserController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
+Route::get('/user/{email}', [UserController::class, 'getByEmail'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
+Route::delete('/user/{id}', [UserController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
+Route::get('/user/{profile}/{page}', [UserController::class, 'getAllByProfile'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
 
 Route::post('/auth', [AuthController::class, 'login']);
 Route::post('/auth/primaryacess', [AuthController::class, 'primaryAcess']);
+Route::post('/auth/updatepassword', [AuthController::class, 'updatePassword']);
