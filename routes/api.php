@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Middleware\Upload;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Middleware\VerifyUserType;
 use App\Http\Middleware\VerifyToken;
 
+use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FormController;
@@ -27,3 +29,5 @@ Route::get('/user/{profile}/{page}', [UserController::class, 'getAllByProfile'])
 Route::post('/auth', [AuthController::class, 'login']);
 Route::post('/auth/primaryacess', [AuthController::class, 'primaryAcess']);
 Route::post('/auth/updatepassword', [AuthController::class, 'updatePassword']);
+
+Route::post('/notice', [NoticeController::class, 'create'])->middleware([Upload::class]);

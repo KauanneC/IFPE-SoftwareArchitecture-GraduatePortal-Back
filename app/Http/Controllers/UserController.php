@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Domain\Dtos\CreateUserDTO;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\CreateUserRequest;
