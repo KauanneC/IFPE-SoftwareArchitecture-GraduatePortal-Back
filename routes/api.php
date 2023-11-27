@@ -30,4 +30,6 @@ Route::post('/auth', [AuthController::class, 'login']);
 Route::post('/auth/primaryacess', [AuthController::class, 'primaryAcess']);
 Route::post('/auth/updatepassword', [AuthController::class, 'updatePassword']);
 
-Route::post('/notice', [NoticeController::class, 'create'])->middleware([Upload::class]);
+Route::post('/notice', [NoticeController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher', Upload::class]);
+Route::get('/notice', [NoticeController::class, 'getAll']);
+Route::delete('/notice/{id}', [NoticeController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);

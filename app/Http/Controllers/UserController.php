@@ -82,15 +82,11 @@ class UserController extends Controller {
 
             $users = $this->getAllUserByProfileUseCase->execute($profile, $page);
 
-            // dd($users);
-
             Log::info('Usuários encontrados com sucesso');
 
             $usersResult = UserViewModel::toHttpGetAll($users);
 
             return $usersResult;
-
-            // return $users;
 
         } catch (\Throwable $th) {
             Log::error($th->getMessage());

@@ -15,6 +15,10 @@ class Upload
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if($request->file('file')->getClientOriginalExtension() != 'pdf'){
+            return response()->json(['msg' => 'Erro, extensão de arquivo não suportada'], 400);
+        }
+
         if($request->hasFile('file')){
             // Get filename with the extension
             $filenameWithExt = $request->file('file')->getClientOriginalName();

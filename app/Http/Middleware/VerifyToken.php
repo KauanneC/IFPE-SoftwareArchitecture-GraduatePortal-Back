@@ -25,6 +25,7 @@ class VerifyToken
 
         try {
             $token = $request->bearerToken();
+            if(!$token) return response()->json(['msg' => 'Token não encontrado'], 401);
 
             $tokenSecret = (string) getenv('TOKEN_SECRET');
 

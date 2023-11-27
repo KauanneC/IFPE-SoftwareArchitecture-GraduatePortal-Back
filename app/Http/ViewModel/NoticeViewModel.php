@@ -12,4 +12,17 @@ class NoticeViewModel {
             'link' => $noticeEntity->getLink(),
         ];
     }
+
+    public static function toHttpGetAll(array $notices): array {
+        $noticesViewModel = [];
+        foreach($notices as $notice){
+            $noticesViewModel[] = [
+                'id' => $notice['_id'],
+                'title' => $notice['title'],
+                'pdfName' => $notice['pdf_name'],
+                'link' => $notice['link'],
+            ];
+        }
+        return $noticesViewModel;
+    }
 }

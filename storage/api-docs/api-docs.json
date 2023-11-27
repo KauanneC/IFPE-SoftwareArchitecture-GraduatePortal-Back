@@ -20,6 +20,10 @@
         {
             "name": "Auth",
             "description": "Endpoints referentes a Autenticação"
+        },
+        {
+            "name": "Notice",
+            "description": "Endpoints referentes aos Editais"
         }
     ],
     "securityDefinitions": {
@@ -1213,6 +1217,226 @@
                         }
                     }
                 }
+            }
+        }, 
+        "/api/notice": {
+            "post": {
+                "summary": "Criar um novo edital",
+                "tags": [
+                    "Notice"
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "pdfName": {
+                                        "type": "string"
+                                    },
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Edital criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "pdfName": {
+                                            "type": "string"
+                                        },
+                                        "link": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar notícia",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao criar edital"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            },
+            "get": {
+                "summary": "Retorna todos os editais",
+                "tags": [
+                    "Notice"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Editais retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "_id": {
+                                                "type": "string",
+                                                "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "pdfName": {
+                                                "type": "string"
+                                            },
+                                            "link": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao retornar editais",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao retornar editais"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            
+            }
+        }, 
+        "/api/notice/{id}": {
+            "delete": {
+                "summary": "Deletar um edital",
+                "tags": [
+                    "Notice"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do edital",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Edital removido com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Edital removido com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao remover edital",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao remover edital"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            
             }
         }
     },
