@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\CreateFormRequest;
 use App\Http\ViewModel\FormViewModel;
-use App\Domain\Entities\Form\FormEntity;
 use App\Domain\Dtos\CreateFormDTO;
 
 use App\Domain\UseCases\Form\RemoveFormUsecase;
@@ -24,12 +22,13 @@ class FormController extends Controller {
 
     public function create(CreateFormRequest $request) {
         try {
-            $requestData = $request->only(['formType', 'question', 'type', 'options']);
+            $requestData = $request->only(['formType', 'question', 'type', 'options', 'other']);
 
             $form = $this->createFormUseCase->execute(new CreateFormDTO(
                 $requestData['formType'],
                 $requestData['question'],
                 $requestData['type'],
+                $requestData['other'],
                 $requestData['options']
             ));
 

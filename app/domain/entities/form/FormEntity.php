@@ -10,11 +10,13 @@ class FormEntity {
     private string $question;
     private string $type;
     private array|null $options;
+    private string|null $other;
 
     public function __construct(
         string $formType,
         string $question,
         string $type,
+        string $other = null,
         array|null $options = null,
         string $id = ''
     ){
@@ -23,6 +25,7 @@ class FormEntity {
         $this->question = $question;
         $this->type = $type;
         $this->options = $options;
+        $this->other = $other;
     }
 
     public function getId(): string {
@@ -51,6 +54,12 @@ class FormEntity {
     }
     public function setOptions(): array|null {
         return $this->options;
+    }
+    public function getOther(): string|null {
+        return $this->other;
+    }
+    public function setOther(): string|null {
+        return $this->other;
     }
 
 }

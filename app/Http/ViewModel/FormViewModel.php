@@ -10,7 +10,8 @@ class FormViewModel {
             'formType' => $formEntity->getFormType(),
             'question' => $formEntity->getQuestion(),
             'type' => $formEntity->getType(),
-            'options' => $formEntity->getOptions()
+            'options' => $formEntity->getOptions(),
+            'other' => $formEntity->getOther()
         ];
     }
 
@@ -22,7 +23,8 @@ class FormViewModel {
                 'formType' => $formData['form_type'],
                 'question' => $formData['question'],
                 'type' => $formData['type'],
-                'options' => $formData['options']
+                'options' => $formData['options'],
+                'other' => $formData['other']
             ];
         }
         return $form;

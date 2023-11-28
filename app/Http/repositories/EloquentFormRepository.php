@@ -14,6 +14,7 @@ class EloquentFormRepository implements IFormRepository {
         $formModel->question = $form->getQuestion();
         $formModel->type = $form->getType();
         $formModel->options = $form->getOptions();
+        $formModel->other = $form->getOther();
 
         $formModel->save();
     }

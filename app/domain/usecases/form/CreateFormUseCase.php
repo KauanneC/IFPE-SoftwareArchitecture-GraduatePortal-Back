@@ -13,6 +13,7 @@ class CreateFormUseCase {
             $data->formType,
             $data->question,
             $data->type,
+            $data->other,
             $data->options
         );
 
