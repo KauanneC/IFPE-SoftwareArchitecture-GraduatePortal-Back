@@ -420,6 +420,21 @@
                                             "option3": "Opção 3"
                                         }
                                     }
+                                },
+                                "example3": {
+                                    "value": {
+                                        "formType": "dados-pessoais || profissional || academico || feedback",
+                                        "question": "Nome Completo",
+                                        "type": "checkbox || radio",
+                                        "options": {
+                                            "option1": "Opção 1",
+                                            "option2": "Opção 2",
+                                            "option3": "Opção 3",
+                                            "outros": {
+                                                "question": "..."
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -450,6 +465,22 @@
                                                 "option1": "Opção 1",
                                                 "option2": "Opção 2",
                                                 "option3": "Opção 3"
+                                            }
+                                        }
+                                    },
+                                    "example3": {
+                                        "value": {
+                                            "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                            "formType": "dados-pessoais || profissional || academico || feedback",
+                                            "question": "Nome Completo",
+                                            "type": "checkbox || radio",
+                                            "options": {
+                                                "option1": "Opção 1",
+                                                "option2": "Opção 2",
+                                                "option3": "Opção 3",
+                                                "outros": {
+                                                    "question": "..."
+                                                }
                                             }
                                         }
                                     }
@@ -533,6 +564,20 @@
                                                     "option1": "Opção 1",
                                                     "option2": "Opção 2",
                                                     "option3": "Opção 3"
+                                                }
+                                            },
+                                            {
+                                                "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                                "formType": "dados_pessoais || profissional || academico || feedback",
+                                                "question": "Nome Completo",
+                                                "type": "checkbox || radio",
+                                                "options": {
+                                                    "option1": "Opção 1",
+                                                    "option2": "Opção 2",
+                                                    "option3": "Opção 3",
+                                                    "outros": {
+                                                        "question": "..."
+                                                    }
                                                 }
                                             }
                                         ]
