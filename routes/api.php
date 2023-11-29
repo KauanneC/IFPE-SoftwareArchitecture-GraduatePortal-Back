@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\VerifyUserType;
 use App\Http\Middleware\VerifyToken;
 
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -33,3 +34,5 @@ Route::post('/auth/updatepassword', [AuthController::class, 'updatePassword']);
 Route::post('/notice', [NoticeController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher', Upload::class]);
 Route::get('/notice', [NoticeController::class, 'getAll']);
 Route::delete('/notice/{id}', [NoticeController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
+
+Route::post('/response', [ResponseController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':null,null,egress']);

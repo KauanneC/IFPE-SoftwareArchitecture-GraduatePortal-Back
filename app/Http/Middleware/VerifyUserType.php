@@ -17,7 +17,14 @@ class VerifyUserType
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $coordinatorUser = null, string $teacherUser = null): Response {
+    public function handle(
+        Request $request, 
+        Closure $next, 
+        string $coordinatorUser = null, 
+        string $teacherUser = null,
+        string $egressUser = null
+    ): Response {
+
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
         $dotenv->load();
 
@@ -26,6 +33,10 @@ class VerifyUserType
         $tokenSecret = (string)getenv('TOKEN_SECRET');
 
         $tokenDecoded = JWT::decode($token, new Key($tokenSecret, 'HS256'));
+
+        if($request->path() == 'api/response' && $request->isMethod('post') && $tokenDecoded->profile == $egressUser) {
+            return $next($request);
+        }
 
         if ($tokenDecoded->profile != $coordinatorUser && $tokenDecoded->profile != $teacherUser) {
             return response()->json(['msg' => 'Usuário não autorizado'], 401);

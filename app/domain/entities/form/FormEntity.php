@@ -11,7 +11,6 @@ class FormEntity {
     private string $type;
     private array|null $options;
     private string|null $other;
-
     public function __construct(
         string $formType,
         string $question,
@@ -61,5 +60,4 @@ class FormEntity {
     public function setOther(): string|null {
         return $this->other;
     }
-
 }
