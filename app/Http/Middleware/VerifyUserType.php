@@ -24,15 +24,16 @@ class VerifyUserType
         string $teacherUser = null,
         string $egressUser = null
     ): Response {
-
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
         $dotenv->load();
-
+        
         $token = $request->bearerToken();
-
+        
         $tokenSecret = (string)getenv('TOKEN_SECRET');
-
+        
         $tokenDecoded = JWT::decode($token, new Key($tokenSecret, 'HS256'));
+
+        // dd($request->path(), $request->isMethod('post'), $tokenDecoded->profile);
 
         if($request->path() == 'api/response' && $request->isMethod('post') && $tokenDecoded->profile == $egressUser) {
             return $next($request);

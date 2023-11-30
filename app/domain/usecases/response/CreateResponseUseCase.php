@@ -10,11 +10,11 @@ class CreateResponseUseCase {
     public function __construct(private IResponseRepository $iResponseRepository){}
 
     public function execute(array $data): void {
-        foreach ($data as $value) {
+        foreach ($data['response'] as $value) {
             $response = new ResponseEntity(
-                $value->formId,
-                $value->userId,
-                $value->value
+                $value['formId'],
+                $data['userId'],
+                $value['value']
             );
 
             $this->iResponseRepository->create($response);

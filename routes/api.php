@@ -35,4 +35,5 @@ Route::post('/notice', [NoticeController::class, 'create'])->middleware([VerifyT
 Route::get('/notice', [NoticeController::class, 'getAll']);
 Route::delete('/notice/{id}', [NoticeController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
 
-Route::post('/response', [ResponseController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':null,null,egress']);
+Route::post('/response', [ResponseController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':,,egress']);
+Route::get('/response/{userId}/{formType}', [ResponseController::class, 'getAllFormType'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);

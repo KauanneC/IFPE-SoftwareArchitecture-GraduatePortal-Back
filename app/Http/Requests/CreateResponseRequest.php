@@ -22,9 +22,9 @@ class CreateResponseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'formId' => 'required|string',
-            'userId' => 'required|string',
-            'value' => 'required|string',
+            'response' => 'required|array',
+            'response.*.formId' => 'required|string',
+            'response.*.value' => 'required|string',
         ];
     }
 }

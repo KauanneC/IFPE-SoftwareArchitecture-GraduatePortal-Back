@@ -29,7 +29,11 @@ class VerifyToken
 
             $tokenSecret = (string) getenv('TOKEN_SECRET');
 
-            JWT::decode($token, new Key($tokenSecret, 'HS256'));
+            $tokenDecoded = JWT::decode($token, new Key($tokenSecret, 'HS256'));
+
+            // dd($tokenDecoded);
+
+            $request->merge(['userId' => $tokenDecoded->userId]);
         } catch (SignatureInvalidException $e) {
             return response()->json(['msg' => 'Token inválido'], 401);
         } catch (ExpiredException $e) {
