@@ -30,4 +30,13 @@ class EloquentResponseRepository implements IResponseRepository
 
         return $responses->toArray();
     }
+
+    public function getAllByUser(string $userId): array
+    {
+        $responses = Response::with('form')
+            ->where('user_id', $userId)
+            ->get();
+
+        return $responses->toArray();
+    }
 }

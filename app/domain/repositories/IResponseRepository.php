@@ -6,4 +6,5 @@ use App\Domain\Entities\Response\ResponseEntity;
 interface IResponseRepository {
     public function create(ResponseEntity $response): void;
     public function getAllFormType(string $userId, string $formType): array;
+    public function getAllByUser(string $userId): array;
 }

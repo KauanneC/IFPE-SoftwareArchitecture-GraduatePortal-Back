@@ -16,10 +16,7 @@ class ResponseViewModel {
                 'other' => $responseData['form']['other'],
             ];
             $response[] = [
-                'id' => $responseData['_id'],
-                'formId' => $responseData['form_id'],
                 'value' => $responseData['value'],
-                'userId' => $responseData['user_id'],
                 'form' => $form
             ];
 

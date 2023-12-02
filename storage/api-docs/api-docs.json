@@ -24,6 +24,10 @@
         {
             "name": "Notice",
             "description": "Endpoints referentes aos Editais"
+        },
+        {
+            "name": "Response",
+            "description": "Endpoints referentes as Respostas"
         }
     ],
     "securityDefinitions": {
@@ -611,7 +615,7 @@
                             }
                         }
                     },
-                    "400": {
+                    "404": {
                         "description": "Error ao remover campo",
                         "content": {
                             "application/json": {
@@ -861,7 +865,7 @@
                             }
                         }
                     },
-                    "400": {
+                    "404": {
                         "description": "Erro ao remover usuário",
                         "content": {
                             "application/json": {
@@ -1443,6 +1447,268 @@
                     }
                  ]
             
+            }
+        },
+        "/api/response": {
+            "post": {
+                "summary": "Enviar uma nova resposta",
+                "tags": [
+                    "Response"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "response": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "formId": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Resposta enviada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Resposta enviada com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao enviar resposta",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example":"Erro ao enviar resposta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/response/{userId}/{formType}": {
+            "get": {
+                "summary": "Retorna todas as respostas de um usuário",
+                "tags": [
+                    "Response"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    },
+                    {
+                        "name": "formType",
+                        "in": "path",
+                        "description": "Tipo do formulário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "dados_pessoais || profissional || academico || feedback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Respostas retornadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "value": {
+                                                "type": "string",
+                                                "example": "teste"
+                                            },
+                                            "form": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                                    },
+                                                    "formType": {
+                                                        "type": "string",
+                                                        "example": "dados_pessoais || profissional || academico || feedback"
+                                                    },
+                                                    "question": {
+                                                        "type": "string",
+                                                        "example": "Nome Completo"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "text || checkbox || radio"
+                                                    },
+                                                    "options": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "option1": {
+                                                                "type": "string",
+                                                                "example": "Opção 1"
+                                                            },
+                                                            "option2": {
+                                                                "type": "string",
+                                                                "example": "Opção 2"
+                                                            },
+                                                            "option3": {
+                                                                "type": "string",
+                                                                "example": "Opção 3"
+                                                            }
+                                                        }
+                                                    },
+                                                    "other": {
+                                                        "type": "string",
+                                                        "example": "Outros"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao retornar respostas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example":"Error ao retornar respostas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/response/export/pdf/{userId}": {
+            "get": {
+                "summary": "Exportar respostas de um usuário em pdf",
+                "tags": [
+                    "Response"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Respostas exportadas com sucesso",
+                        "content": {
+                            "application/pdf": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao exportar respostas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example":"Error ao retornar pdf"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         }
     },

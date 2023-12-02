@@ -37,3 +37,4 @@ Route::delete('/notice/{id}', [NoticeController::class, 'remove'])->middleware([
 
 Route::post('/response', [ResponseController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':,,egress']);
 Route::get('/response/{userId}/{formType}', [ResponseController::class, 'getAllFormType'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
+Route::get('/response/export/pdf/{userId}', [ResponseController::class, 'getPdf']);

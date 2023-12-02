@@ -24,7 +24,7 @@ class CreateResponseRequest extends FormRequest
         return [
             'response' => 'required|array',
             'response.*.formId' => 'required|string',
-            'response.*.value' => 'required|string',
+            'response.*.value.*' => 'required|string',
         ];
     }
 }

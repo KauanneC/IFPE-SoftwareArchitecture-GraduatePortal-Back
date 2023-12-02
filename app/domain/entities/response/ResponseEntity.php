@@ -8,11 +8,11 @@ class ResponseEntity {
     private string $id;
     private string $formId;
     private string $userId;
-    private string $value;
+    private string|array $value;
     public function __construct(
         string $formId,
         string $userId,
-        string $value,
+        string|array $value,
         string $id = ''
     ){
         $this->id = $id == '' ? Uuid::uuid4()->toString() : $id;
@@ -36,10 +36,10 @@ class ResponseEntity {
     public function setUserId(): string {
         return $this->userId;
     }
-    public function getValue(): string {
+    public function getValue(): string|array{
         return $this->value;
     }
-    public function setValue(): string {
+    public function setValue(): string|array {
         return $this->value;
     }
 }
