@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Domain\Dtos\CreateUserDTO;
 
+use App\Domain\UseCases\User\updateCodeUserUseCase;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\CreateUserRequest;
@@ -20,7 +22,8 @@ class UserController extends Controller {
         private CreateUserUseCase $createUserUseCase,
         private GetUserByEmailUseCase $getUserByEmailUseCase,
         private RemoveUserUseCase $removeUserUseCase,
-        private GetAllUserByProfileUseCase $getAllUserByProfileUseCase
+        private GetAllUserByProfileUseCase $getAllUserByProfileUseCase,
+        private updateCodeUserUseCase $updateCodeUserUseCase
     
     ){}
     public function create(CreateUserRequest $request) {
@@ -91,6 +94,23 @@ class UserController extends Controller {
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json(['msg' => 'Error ao buscar usuários'], 404);
+        }
+    }
+
+    public function updateCode(Request $request){
+        try {
+
+            $requestData = $request->only(['userId']);
+
+            $code = $this->updateCodeUserUseCase->execute($requestData['userId']);
+
+            Log::info('Código do usuário atualizado com sucesso');
+
+            return response()->json(['code' => $code], 200);
+
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(['msg' => 'Erro ao atualizar código'], 400);
         }
     }
 }

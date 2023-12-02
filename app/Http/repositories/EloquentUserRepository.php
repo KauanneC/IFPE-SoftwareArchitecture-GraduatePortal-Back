@@ -53,4 +53,11 @@ class EloquentUserRepository implements IUserRepository {
         $userModel->save();
         return true;
     }
+
+    public function updateCode(string $userId, string $code): string {
+        $userModel = User::where('_id', $userId)->first();
+        $userModel->code = $code;
+        $userModel->save();
+        return $userModel->code;
+    }
 }

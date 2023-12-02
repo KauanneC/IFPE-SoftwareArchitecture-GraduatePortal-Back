@@ -743,6 +743,61 @@
                        "bearerAuth": []
                     }
                  ]
+            },
+            "put": {
+                "summary": "Atualizar o código do usuário",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Código do usuário atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao atualizar código do usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao atualizar código do usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
             }
         },
         "/api/user/{email}": {

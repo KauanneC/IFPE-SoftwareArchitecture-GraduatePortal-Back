@@ -26,6 +26,7 @@ Route::post('/user', [UserController::class, 'create'])->middleware([VerifyToken
 Route::get('/user/{email}', [UserController::class, 'getByEmail'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
 Route::delete('/user/{id}', [UserController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
 Route::get('/user/{profile}/{page}', [UserController::class, 'getAllByProfile'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
+Route::put('/user', [UserController::class, 'updateCode'])->middleware([VerifyToken::class]);
 
 Route::post('/auth', [AuthController::class, 'login']);
 Route::post('/auth/primaryacess', [AuthController::class, 'primaryAcess']);

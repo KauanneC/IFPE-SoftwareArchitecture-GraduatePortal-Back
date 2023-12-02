@@ -9,5 +9,6 @@ interface IUserRepository {
     public function findByEmail(string $email): UserEntity;
     public function findAllByProfile(string $profile, int $limit): array;
     public function updatePassword(string $email, string $password): bool;
+    public function updateCode(string $userId, string $code): string;
     public function remove(string $id): bool;
 }
