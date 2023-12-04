@@ -39,7 +39,7 @@ class EloquentUserRepository implements IUserRepository {
     }
 
     public function findAllByProfile(string $profile, int $limit): array {
-        $userModels = User::where('profile', $profile)->paginate($limit);
+        $userModels = User::where('profile', $profile)->orderBy('name', 'asc')->paginate($limit);
         return $userModels->toArray();
     }
 

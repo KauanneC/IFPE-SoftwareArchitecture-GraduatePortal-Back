@@ -55,6 +55,11 @@ Variáveis de ambiente configuradas, rode o seguinte comando:
 ```bash
 php artisan serve
 ```
+E, por ultimo, rode o seguinte comando:
+
+```bash
+php artisan storage:link
+```
 
 ## Teste e validação:
 
