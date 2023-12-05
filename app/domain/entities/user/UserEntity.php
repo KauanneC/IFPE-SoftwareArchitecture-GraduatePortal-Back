@@ -20,6 +20,7 @@ class UserEntity {
         string $email,
         string $password,
         Profile $profile,
+        string $primaryAcess = '',
         string $code = '',
         string $id = '',
     ) {
@@ -28,7 +29,7 @@ class UserEntity {
         $this->email = $email;
         $this->password = $password;
         $this->profile = $profile;
-        $this->primaryAcess = false;
+        $this->primaryAcess = $primaryAcess == '' ? false: $primaryAcess;
         $this->code = $code == '' ? Uuid::uuid4()->toString() : $code;
     }
 

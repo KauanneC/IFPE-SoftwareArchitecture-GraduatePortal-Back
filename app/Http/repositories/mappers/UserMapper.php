@@ -12,6 +12,7 @@ class UserMapper {
             $user->email,
             $user->password,
             new Profile($user->profile),
+            $user->primaryAcess,
             $user->code,
             $user->_id
         );
