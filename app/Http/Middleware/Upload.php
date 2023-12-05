@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 
 class Upload
 {
@@ -16,6 +17,7 @@ class Upload
     public function handle(Request $request, Closure $next): Response
     {
         if($request->file('file')->getClientOriginalExtension() != 'pdf'){
+            Log::info('Erro, extensão de arquivo não suportada');
             return response()->json(['msg' => 'Erro, extensão de arquivo não suportada'], 400);
         }
 
@@ -31,7 +33,7 @@ class Upload
             // Upload Image
             $path = $request->file('file')->storeAs('public/uploads', $fileNameToStore);
 
-            $request->merge(['link' => $fileNameToStore]);
+            $request->merge(['link' => 'http://localhost:8000/storage/uploads/'.$fileNameToStore]);
         } else {
             return response()->json(['msg' => 'Arquivo não encontrado'], 404);
         }

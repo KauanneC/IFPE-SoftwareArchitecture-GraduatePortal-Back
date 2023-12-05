@@ -21,6 +21,7 @@ class NoticeController extends Controller {
     ){}
 
     public function create(CreateNoticeRequest $request){
+
         try {
             $requestData = $request->only(['title', 'pdfName', 'link']);
 
