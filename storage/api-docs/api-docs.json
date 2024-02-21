@@ -1,0 +1,1779 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Portal de Egressos",
+        "version": "1.0.0"
+    },
+    "tags": [
+        {
+            "name": "Event",
+            "description": "Endpoints referentes aos eventos"
+        },
+        {
+            "name": "Form",
+            "description": "Endpoints referentes ao Formulário"
+        },
+        {
+            "name": "User",
+            "description": "Endpoints referentes ao Usuário"
+        },
+        {
+            "name": "Auth",
+            "description": "Endpoints referentes a Autenticação"
+        },
+        {
+            "name": "Notice",
+            "description": "Endpoints referentes aos Editais"
+        },
+        {
+            "name": "Response",
+            "description": "Endpoints referentes as Respostas"
+        }
+    ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apikey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Autenticação JWT"
+        }
+    },
+    "paths": {
+        "/api/events": {
+            "post": {
+                "summary": "Cria um novo evento",
+                "tags": [
+                    "Event"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2020-12-31"
+                                    },
+                                    "hour": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "12:00"
+                                    },
+                                    "modality": {
+                                        "type": "string"
+                                    },
+                                    "place": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Evento criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "date": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2020-12-31"
+                                        },
+                                        "hour": {
+                                            "type": "string",
+                                            "format": "time",
+                                            "example": "12:00"
+                                        },
+                                        "modality": {
+                                            "type": "string"
+                                        },
+                                        "place": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar evento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao criar evento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            },
+            "get": {
+                "summary": "Retorna todos os eventos",
+                "tags": [
+                    "Event"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Eventos retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "_id": {
+                                                "type": "string",
+                                                "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "date": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2020-12-31"
+                                            },
+                                            "hour": {
+                                                "type": "string",
+                                                "format": "time",
+                                                "example": "12:00"
+                                            },
+                                            "modality": {
+                                                "type": "string"
+                                            },
+                                            "place": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao retornar eventos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao retornar eventos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/events/{id}": {
+            "put": {
+                "summary": "Atualizar um evento",
+                "tags": [
+                    "Event"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "param",
+                        "description": "Id do evento",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2020-12-31"
+                                    },
+                                    "hour": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "12:00"
+                                    },
+                                    "modality": {
+                                        "type": "string"
+                                    },
+                                    "place": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Evento atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Evento atualizado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao atualizar evento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao atualizar evento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            },
+            "delete": {
+                "summary": "Deletar um evento",
+                "tags": [
+                    "Event"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "param",
+                        "description": "Id do evento",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Evento deletado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Evento deletado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao deletar evento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao deletar evento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/forms": {
+            "post": {
+                "summary": "Criar um novo Campo no formulário",
+                "tags": [
+                    "Form"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "formType": "dados_pessoais || profissional || academico || feedback",
+                                        "question": "Nome Completo",
+                                        "type": "text",
+                                        "options": null,
+                                        "other": null
+                                    }
+                                },
+                                "example2": {
+                                    "value": {
+                                        "formType": "dados_pessoais || profissional || academico || feedback",
+                                        "question": "Nome Completo",
+                                        "type": "checkbox || radio",                                        
+                                        "options": {
+                                            "option1": "Opção 1",
+                                            "option2": "Opção 2",
+                                            "option3": "Opção 3"
+                                        },
+                                        "other": "Outros"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Campo criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                            "formType": "dados_pessoais || profissional || academico || feedback",
+                                            "question": "Nome Completo",
+                                            "type": "text",
+                                            "options": null,
+                                            "other": null
+                                        }
+                                    },
+                                    "example2": {
+                                        "value": {
+                                            "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                            "formType": "dados_pessoais || profissional || academico || feedback",
+                                            "question": "Nome Completo",
+                                            "type": "checkbox || radio",
+                                            "options": {
+                                                "option1": "Opção 1",
+                                                "option2": "Opção 2",
+                                                "option3": "Opção 3"
+                                            },
+                                            "other": "Outros"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar campo do formulário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao criar campoo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/forms/{formType}": {
+            "get": {
+                "summary": "Retorna todos os campos de um formulário específico",
+                "tags": [
+                    "Form"
+                ],
+                "parameters": [
+                    {
+                        "name": "formType",
+                        "in": "path",
+                        "description": "Tipo do formulário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "dados_pessoais || profissional || academico || feedback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Campos retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "example1": {
+                                        "value": [
+                                            {
+                                                "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                                "formType": "dados_pessoais || profissional || academico || feedback",
+                                                "question": "Nome Completo",
+                                                "type": "text",
+                                                "options": null,
+                                                "other": null
+                                            },
+                                            {
+                                                "id": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2",
+                                                "formType": "dados_pessoais || profissional || academico || feedback",
+                                                "question": "Nome Completo",
+                                                "type": "checkbox || radio",
+                                                "options": {
+                                                    "option1": "Opção 1",
+                                                    "option2": "Opção 2",
+                                                    "option3": "Opção 3"
+                                                },
+                                                "other": "Outros"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao retornar campos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao retornar campos do formulário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/forms/{id}": {
+            "delete": {
+                "summary": "Deletar um campo do formulário",
+                "tags": [
+                    "Form"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do campo",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Campo removido com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Campo removido com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error ao remover campo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao remover campo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/user": {
+            "post": {
+                "summary": "Criar um novo usuário",
+                "tags": [
+                    "User"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "profile": {
+                                            "type": "string"
+                                        },
+                                        "primaryAcess": {
+                                            "type": "boolean"
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao criar usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            },
+            "put": {
+                "summary": "Atualizar o código do usuário",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Código do usuário atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao atualizar código do usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao atualizar código do usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/user/{email}": {
+            "get": {
+                "summary": "Retorna um usuário específico pelo email",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "teste@gmail.com"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário retornado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "profile": {
+                                            "type": "string"
+                                        },
+                                        "primaryAcess": {
+                                            "type": "boolean"
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao retonar usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/user/{id}": {
+            "delete": {
+                "summary": "Deletar um usuário",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário removido com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Usuário removido com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao remover usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao remover usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/user/{profile}/{page}": {
+            "get": {
+                "summary": "Retorna todos os usuários de um perfil específico",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "profile",
+                        "in": "path",
+                        "description": "Perfil do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "coordinator || egress || teacher"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Página atual",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuários retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "_id": {
+                                                        "type": "string",
+                                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "profile": {
+                                                        "type": "string"
+                                                    },
+                                                    "primaryAcess": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "page_info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "total_users": {
+                                                    "type": "number",
+                                                    "example": 100
+                                                },
+                                                "total_page": {
+                                                    "type": "number",
+                                                    "example": 10
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuários não encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao retornar usuários"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/auth": {
+            "post": {
+                "summary": "Autenticar um usuário",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário autenticado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro ao autenticar usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "E-mail ou senha incorretos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requsições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/primaryAcess": {
+            "post": {
+                "summary": "Alterar senha do usuário com acesso pirmário",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário autenticado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Senha do usuário alterado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao alterar senha do usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao alterar senha do usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/updatepassword": {
+            "post": {
+                "summary": "Alterar senha do usuário",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha do usuário alterado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Senha do usuário alterado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao alterar senha do usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Error ao alterar senha do usuário"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            }
+        }, 
+        "/api/notice": {
+            "post": {
+                "summary": "Criar um novo edital",
+                "tags": [
+                    "Notice"
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "pdfName": {
+                                        "type": "string"
+                                    },
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Edital criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "pdfName": {
+                                            "type": "string"
+                                        },
+                                        "link": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar notícia",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao criar edital"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            },
+            "get": {
+                "summary": "Retorna todos os editais",
+                "tags": [
+                    "Notice"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Editais retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "_id": {
+                                                "type": "string",
+                                                "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "pdfName": {
+                                                "type": "string"
+                                            },
+                                            "link": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao retornar editais",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao retornar editais"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                }
+            
+            }
+        }, 
+        "/api/notice/{id}": {
+            "delete": {
+                "summary": "Deletar um edital",
+                "tags": [
+                    "Notice"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do edital",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Edital removido com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Edital removido com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao remover edital",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Erro ao remover edital"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            
+            }
+        },
+        "/api/response": {
+            "post": {
+                "summary": "Enviar uma nova resposta",
+                "tags": [
+                    "Response"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "response": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "formId": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Resposta enviada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Resposta enviada com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao enviar resposta",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example":"Erro ao enviar resposta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/response/{userId}/{formType}": {
+            "get": {
+                "summary": "Retorna todas as respostas de um usuário",
+                "tags": [
+                    "Response"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    },
+                    {
+                        "name": "formType",
+                        "in": "path",
+                        "description": "Tipo do formulário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "dados_pessoais || profissional || academico || feedback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Respostas retornadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "value": {
+                                                "type": "string",
+                                                "example": "teste"
+                                            },
+                                            "form": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                                                    },
+                                                    "formType": {
+                                                        "type": "string",
+                                                        "example": "dados_pessoais || profissional || academico || feedback"
+                                                    },
+                                                    "question": {
+                                                        "type": "string",
+                                                        "example": "Nome Completo"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "text || checkbox || radio"
+                                                    },
+                                                    "options": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "option1": {
+                                                                "type": "string",
+                                                                "example": "Opção 1"
+                                                            },
+                                                            "option2": {
+                                                                "type": "string",
+                                                                "example": "Opção 2"
+                                                            },
+                                                            "option3": {
+                                                                "type": "string",
+                                                                "example": "Opção 3"
+                                                            }
+                                                        }
+                                                    },
+                                                    "other": {
+                                                        "type": "string",
+                                                        "example": "Outros"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao retornar respostas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example":"Error ao retornar respostas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        },
+        "/api/response/export/pdf/{userId}": {
+            "get": {
+                "summary": "Exportar respostas de um usuário em pdf",
+                "tags": [
+                    "Response"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3e31c1be-3a4b-4b25-be0b-45dc13282fd2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Respostas exportadas com sucesso",
+                        "content": {
+                            "application/pdf": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Erro ao exportar respostas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example":"Error ao retornar pdf"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "description": "Header que permite a api aceitar requisições em json",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
