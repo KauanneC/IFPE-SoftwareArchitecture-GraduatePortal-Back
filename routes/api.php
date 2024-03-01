@@ -13,7 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\EventController;
 
-Route::post('/events', [EventController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
+Route::post('/events', [EventController::class, 'create'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator']);
 Route::get('/events', [EventController::class, 'getAll']);
 Route::delete('/events/{id}', [EventController::class, 'remove'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
 Route::put('/events/{id}', [EventController::class, 'update'])->middleware([VerifyToken::class, VerifyUserType::class . ':coordinator,teacher']);
